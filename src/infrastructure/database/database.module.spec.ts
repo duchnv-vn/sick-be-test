@@ -1,7 +1,7 @@
 import { TestingModule, Test } from '@nestjs/testing';
 import { connect, createConnection, disconnect } from 'mongoose';
 import { MongodbModule } from './database.module';
-import { MONGODB_URI } from '../../../configs/envs';
+import { MONGODB_URI } from '../../configs/envs';
 
 describe('MongoDB Module', () => {
   beforeAll(async () => {

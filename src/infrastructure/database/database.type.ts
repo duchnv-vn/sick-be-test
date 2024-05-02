@@ -1,5 +1,5 @@
 import { ConnectOptions, Types as MongooseTypes } from 'mongoose';
-import { ModelName, CollectionName } from '../../../utils/enum/collection';
+import { ModelName, CollectionName } from '../../utils/enum/collection';
 
 export namespace MongoDatabase {
   export type ConfigOptions = ConnectOptions;

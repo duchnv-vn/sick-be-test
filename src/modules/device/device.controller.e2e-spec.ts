@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DeviceModule } from './device.module';
 import { MONGODB_URI } from '../../configs/envs';
-import { MongodbModule } from '../../infrastructure/logger/database/database.module';
+import { MongodbModule } from '../../infrastructure/database/database.module';
 
 describe('DeviceController', () => {
   let app: INestApplication;
