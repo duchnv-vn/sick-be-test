@@ -44,6 +44,9 @@ jobs:
       - name: Check lint
         run: npm run lint
 
+      - name: Build
+        run: npm run build
+
       - name: Run test
         run: npm run test:ci
         env:
