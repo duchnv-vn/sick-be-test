@@ -12,7 +12,6 @@ import { AppExceptionFilter } from './presentation/filters/app-exception.filter'
       level: LOG_LEVEL,
     }),
     MongodbModule.forRoot(MONGODB_URI, {}),
-    ,
     DeviceModule,
   ],
   providers: [
