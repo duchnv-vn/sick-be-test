@@ -24,6 +24,7 @@ module.exports = {
     'lerna',
   ],
   scopes: [
+    'app',
     'test',
     'common',
     'infrastructure',
@@ -32,7 +33,6 @@ module.exports = {
     'utils',
     'config',
     'release',
-    'app',
   ],
   types: {
     chore: {
