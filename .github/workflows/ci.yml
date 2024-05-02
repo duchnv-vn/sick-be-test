@@ -1,0 +1,52 @@
+name: CI Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feat/**
+      - feature/**
+      - fix/**
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container:
+      image: node:20-bullseye
+      env:
+        NODE_ENV: development
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache node modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Run test
+        run: npm run test:ci
+        env:
+          MONGODB_URI: ${{ vars.CI__DATABASE__MONGODB_URI }}
+
+      - name: Run test e2e
+        run: npm run test:e2e:ci
+        env:
+          MONGODB_URI: ${{ vars.CI__DATABASE__MONGODB_URI }}
