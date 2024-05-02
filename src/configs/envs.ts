@@ -11,3 +11,8 @@ export const AUTH0_TOKEN_SIGN_ALG = process.env.AUTH0_TOKEN_SIGN_ALG || '';
 
 export const LOG_DRIVER = process.env.LOG_DRIVER || LogDriver.DEFAULT;
 export const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
+
+export const AUTH0_APP_CREDENTIAL_PUBLIC_KEY =
+  process.env.AUTH0_APP_CREDENTIAL_PUBLIC_KEY || '';
+export const AUTH0_APP_CREDENTIAL_PRIVATE_KEY =
+  process.env.AUTH0_APP_CREDENTIAL_PRIVATE_KEY || '';

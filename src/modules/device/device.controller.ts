@@ -8,6 +8,7 @@ import {
   Put,
   UseInterceptors,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { DeviceService } from './device.service';
@@ -15,6 +16,11 @@ import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
 import { LoggerService } from '../../infrastructure/logger/logger.service';
 import { ResponseInterceptor } from '../../presentation/interceptors/response.interceptor';
+import { Me } from '../../utils/decorator/me';
+import { User } from '../../domain/schema/user/user.interface';
+import { BasicAuthGuard } from '../../presentation/guard/basic-auth.guard';
+import { DeviceAccessAuthGuard } from '../../presentation/guard/device-manipulation-auth.guard';
+import { DeviceIdParamsDto } from './dto/device-id-param.dto';
 
 @Controller('devices')
 @UseInterceptors(ResponseInterceptor)
@@ -25,19 +31,26 @@ export class DeviceController {
   ) {}
 
   @Get()
-  findAll(@Res() _res: Response) {
+  @UseGuards(...BasicAuthGuard)
+  async findByUser(@Me() { _id }: User, @Res() _res: Response) {
     try {
-      return this.deviceService.findAll();
+      const devices = await this.deviceService.findByUser(_id);
+      return devices;
     } catch (error) {
-      this.logger.log('deviceController.findAll', error);
+      this.logger.log('deviceController.findByUser', error);
       throw error;
     }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string, @Res() _res: Response) {
+  @Get(':deviceId')
+  @UseGuards(...DeviceAccessAuthGuard)
+  async findOne(
+    @Param() { deviceId }: DeviceIdParamsDto,
+    @Res() _res: Response,
+  ) {
     try {
-      return this.deviceService.findOne(+id);
+      const device = await this.deviceService.findOne(deviceId);
+      return device;
     } catch (error) {
       this.logger.log('deviceController.findOne', error);
       throw error;
@@ -45,33 +58,45 @@ export class DeviceController {
   }
 
   @Post()
-  create(@Body() createDeviceDto: CreateDeviceDto, @Res() _res: Response) {
+  @UseGuards(...BasicAuthGuard)
+  async create(
+    @Me() { _id }: User,
+    @Body() body: CreateDeviceDto,
+    @Res() _res: Response,
+  ) {
     try {
-      return this.deviceService.create(createDeviceDto);
+      const device = await this.deviceService.create(body, _id);
+      return device;
     } catch (error) {
       this.logger.log('deviceController.create', error);
       throw error;
     }
   }
 
-  @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateDeviceDto: UpdateDeviceDto,
+  @Put(':deviceId')
+  @UseGuards(...DeviceAccessAuthGuard)
+  async update(
+    @Param() { deviceId }: DeviceIdParamsDto,
+    @Body() body: UpdateDeviceDto,
     @Res() _res: Response,
   ) {
     try {
-      return this.deviceService.update(+id, updateDeviceDto);
+      const device = await this.deviceService.update(deviceId, body);
+      return device;
     } catch (error) {
       this.logger.log('deviceController.update', error);
       throw error;
     }
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string, @Res() _res: Response) {
+  @Delete(':deviceId')
+  @UseGuards(...DeviceAccessAuthGuard)
+  async remove(
+    @Param() { deviceId }: DeviceIdParamsDto,
+    @Res() _res: Response,
+  ) {
     try {
-      return this.deviceService.remove(+id);
+      return this.deviceService.remove(deviceId);
     } catch (error) {
       this.logger.log('deviceController.remove', error);
       throw error;
