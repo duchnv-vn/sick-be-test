@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
-import { PORT } from './configs/envs';
+import { NODE_ENV, PORT } from './configs/envs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,6 +22,8 @@ async function bootstrap() {
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(PORT);
-  console.log(`----- [App is listening on port: ${PORT}] -----`);
+  if (NODE_ENV === 'development') {
+    console.log(`----- [App is listening on port: ${PORT}] -----`);
+  }
 }
 bootstrap();

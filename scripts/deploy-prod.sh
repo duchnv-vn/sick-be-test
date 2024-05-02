@@ -2,19 +2,16 @@
 
 source .env
 
-npm run lint
-
 npm run build
 
 cp package*.json ./dist
 
-mkdir -p dist/.vercel
+mkdir -p ./dist/.vercel
+touch ./dist/.vercel/project.json
+echo "{\"orgId\":\"$VERCEL_ORG_ID\",\"projectId\":\"$VERCEL_PROJECT_ID\"}" >./dist/.vercel/project.json
 
-touch dist/.vercel/project.json
-
-echo "{\"orgId\":\"$VERCEL_ORG_ID\",\"projectId\":\"$VERCEL_PROJECT_ID\"}" >dist/.vercel/project.json
-
-vercel --prod ./dist \
+vercel --prod \
+    ./dist \
     -A "vercel.json" \
     -e MONGODB_URI=$MONGODB_URI \
     -e AUTH0_AUDIENCE=$AUTH0_AUDIENCE \

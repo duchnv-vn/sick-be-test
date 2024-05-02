@@ -5,6 +5,7 @@ import { LOG_LEVEL, MONGODB_URI } from './configs/envs';
 import { MongodbModule } from './infrastructure/database/database.module';
 import { LoggerModule } from './infrastructure/logger/logger.module';
 import { AppExceptionFilter } from './presentation/filters/app-exception.filter';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AppExceptionFilter } from './presentation/filters/app-exception.filter'
     MongodbModule.forRoot(MONGODB_URI, {}),
     DeviceModule,
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_FILTER,
