@@ -10,10 +10,14 @@ import {
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
+import { LoggerService } from '../../infrastructure/logger/logger.service';
 
 @Controller('devices')
 export class DeviceController {
-  constructor(private readonly deviceService: DeviceService) {}
+  constructor(
+    private readonly deviceService: DeviceService,
+    private readonly logger: LoggerService,
+  ) {}
 
   @Get()
   findAll() {
