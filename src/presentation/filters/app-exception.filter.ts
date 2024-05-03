@@ -15,9 +15,7 @@ export class AppExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    console.log('------------------------');
-    console.log('exception', exception);
-    console.log('------------------------');
+
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
 
     switch (true) {
