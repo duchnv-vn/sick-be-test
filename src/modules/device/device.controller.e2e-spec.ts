@@ -157,6 +157,7 @@ describe('DeviceController', () => {
       name: 'laptop 1',
       description: 'This is description of laptop 1',
       type: 0,
+      serialNumber: '111111',
     };
 
     const createFunc = jest.spyOn(deviceService, 'create');
@@ -176,9 +177,8 @@ describe('DeviceController', () => {
 
   it('should update a device', async () => {
     const mockPayload = {
-      name: 'laptop 1',
-      description: 'This is description of laptop 1',
-      type: 0,
+      name: 'laptop 11',
+      description: 'This is description of laptop 11',
     };
 
     const updateFunc = jest.spyOn(deviceService, 'update');
