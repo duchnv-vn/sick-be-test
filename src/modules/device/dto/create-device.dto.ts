@@ -13,6 +13,10 @@ export class CreateDeviceDto {
   @IsNotEmpty()
   name: string;
 
+  @IsString()
+  @IsNotEmpty()
+  serialNumber: string;
+
   @IsNumber()
   @Transform(({ value }) => Number(value))
   @IsEnum(DeviceTypes)
