@@ -1,6 +1,11 @@
 export enum DeviceTypes {
-  LAPTOP = 'LAPTOP',
-  PC = 'PC',
-  MODEM = 'MODEM',
-  OTHER = 'OTHER',
+  LAPTOP,
+  PC,
+  MODEM,
+  OTHER,
+}
+
+export enum DeviceStatus {
+  OFFLINE,
+  ONLINE,
 }

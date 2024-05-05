@@ -6,4 +6,6 @@ export enum HttpExceptionEnum {
 
 export enum RequestExceptionEnum {
   USER_NOT_EXIST = 'USER_NOT_EXIST',
+  DEVICE_ACCESS_BY_INVALID_USER = 'DEVICE_ACCESS_BY_INVALID_USER',
+  DEVICE_NOT_FOUND = 'DEVICE_NOT_FOUND',
 }

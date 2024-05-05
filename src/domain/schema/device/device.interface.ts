@@ -1,10 +1,11 @@
 import { HydratedDocument } from 'mongoose';
 import { IBaseSchema } from '../base';
-import { DeviceTypes } from '../../enum/device';
+import { DeviceStatus, DeviceTypes } from '../../enum/device';
 
 export interface Device extends IBaseSchema {
   name: string;
-  deviceType: DeviceTypes;
+  type: DeviceTypes;
+  status: DeviceStatus;
   description: string;
   userId: number;
   deleteFlag: number;

@@ -1,15 +1,20 @@
 import { Schema } from 'mongoose';
 import { ModelName } from '../../../utils/enum/collection';
-import { DeviceTypes } from '../../enum/device';
+import { DeviceStatus, DeviceTypes } from '../../enum/device';
 
 export const DeviceSchema = new Schema(
   {
     _id: Number,
     name: String,
     description: String,
-    deviceType: {
+    type: {
       type: Number,
       enum: DeviceTypes,
+    },
+    status: {
+      type: Number,
+      enum: DeviceStatus,
+      default: DeviceStatus.ONLINE,
     },
     userId: {
       type: Number,
@@ -22,5 +27,14 @@ export const DeviceSchema = new Schema(
   },
   {
     timestamps: true,
+  },
+);
+
+DeviceSchema.index(
+  {
+    userId: 1,
+  },
+  {
+    name: 'userId_2024-05-03',
   },
 );
