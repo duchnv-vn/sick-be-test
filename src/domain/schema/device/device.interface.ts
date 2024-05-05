@@ -4,6 +4,7 @@ import { DeviceStatus, DeviceTypes } from '../../enum/device';
 
 export interface Device extends IBaseSchema {
   name: string;
+  serialNumber: string;
   type: DeviceTypes;
   status: DeviceStatus;
   description: string;

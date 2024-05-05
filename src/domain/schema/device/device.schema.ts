@@ -6,6 +6,7 @@ export const DeviceSchema = new Schema(
   {
     _id: Number,
     name: String,
+    serialNumber: String,
     description: String,
     type: {
       type: Number,
@@ -14,7 +15,7 @@ export const DeviceSchema = new Schema(
     status: {
       type: Number,
       enum: DeviceStatus,
-      default: DeviceStatus.ONLINE,
+      default: DeviceStatus.online,
     },
     userId: {
       type: Number,
