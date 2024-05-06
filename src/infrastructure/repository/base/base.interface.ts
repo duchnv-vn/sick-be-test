@@ -15,4 +15,5 @@ export interface IBaseRepository<M> {
   deleteByIds(ids: number[]): Promise<boolean>;
   count(): Promise<number>;
   checkExistBy(condition: Partial<M>): Promise<boolean>;
+  getNextId(): Promise<number>;
 }

@@ -16,7 +16,7 @@ export class DeviceService {
   }
 
   async create(payload: CreateDeviceDto, userId: number) {
-    const nextId = await this.deviceRepo.count();
+    const nextId = await this.deviceRepo.getNextId();
     return this.deviceRepo.create({ ...payload, userId, _id: nextId });
   }
 
