@@ -93,4 +93,12 @@ export class BaseRepository<M extends IBaseSchemaCommon>
     const result = await this.model.countDocuments(condition);
     return result > 0;
   }
+
+  async getNextId(): Promise<number> {
+    const [latestDocument] = await this.model
+      .find({}, { _id: 1 })
+      .sort({ _id: -1 })
+      .limit(1);
+    return !latestDocument ? 0 : latestDocument?._id + 1;
+  }
 }
